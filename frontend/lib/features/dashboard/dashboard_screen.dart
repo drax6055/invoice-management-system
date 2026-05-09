@@ -42,7 +42,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => setState(() => _future = _load()),
+      onRefresh: () async {
+        setState(() {
+          _future = _load();
+        });
+        await _future;
+      },
       child: FutureBuilder<_DashboardData>(
         future: _future,
         builder: (context, snapshot) {

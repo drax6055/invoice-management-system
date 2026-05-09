@@ -49,7 +49,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
       isScrollControlled: true,
       builder: (_) => _ProductEditor(apiClient: widget.apiClient, product: product),
     );
-    if (saved == true) setState(() => _future = _load());
+    if (saved == true) {
+      setState(() {
+        _future = _load();
+      });
+    }
   }
 
   @override
@@ -78,11 +82,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
               prefixIcon: const Icon(Icons.search),
               suffixIcon: IconButton(
                 tooltip: 'Search',
-                onPressed: () => setState(() => _future = _load()),
+                onPressed: () {
+                  setState(() {
+                    _future = _load();
+                  });
+                },
                 icon: const Icon(Icons.arrow_forward),
               ),
             ),
-            onSubmitted: (_) => setState(() => _future = _load()),
+            onSubmitted: (_) {
+              setState(() {
+                _future = _load();
+              });
+            },
           ),
         ),
         Expanded(
@@ -108,7 +120,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 );
               }
               return RefreshIndicator(
-                onRefresh: () async => setState(() => _future = _load()),
+                onRefresh: () async {
+                  setState(() {
+                    _future = _load();
+                  });
+                  await _future;
+                },
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: products.length,

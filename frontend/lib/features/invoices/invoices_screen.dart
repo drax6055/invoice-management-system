@@ -36,7 +36,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
     );
     if (reason == null || reason.trim().isEmpty) return;
     await widget.apiClient.patch('/orders/${order.id}/void', {'reason': reason.trim()});
-    setState(() => _future = _load());
+    setState(() {
+      _future = _load();
+    });
   }
 
   @override
@@ -53,7 +55,11 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
               Expanded(child: Text('Invoices', style: Theme.of(context).textTheme.headlineSmall)),
               IconButton.filledTonal(
                 tooltip: 'Refresh',
-                onPressed: () => setState(() => _future = _load()),
+                onPressed: () {
+                  setState(() {
+                    _future = _load();
+                  });
+                },
                 icon: const Icon(Icons.refresh),
               ),
             ],
@@ -82,7 +88,12 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 );
               }
               return RefreshIndicator(
-                onRefresh: () async => setState(() => _future = _load()),
+                onRefresh: () async {
+                  setState(() {
+                    _future = _load();
+                  });
+                  await _future;
+                },
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: orders.length,

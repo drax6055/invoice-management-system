@@ -55,7 +55,12 @@ class _ReportsScreenState extends State<ReportsScreen> {
         }
         final data = snapshot.data!;
         return RefreshIndicator(
-          onRefresh: () async => setState(() => _future = _load()),
+          onRefresh: () async {
+            setState(() {
+              _future = _load();
+            });
+            await _future;
+          },
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -64,7 +69,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   Expanded(child: Text('Reports', style: Theme.of(context).textTheme.headlineSmall)),
                   IconButton.filledTonal(
                     tooltip: 'Refresh',
-                    onPressed: () => setState(() => _future = _load()),
+                    onPressed: () {
+                      setState(() {
+                        _future = _load();
+                      });
+                    },
                     icon: const Icon(Icons.refresh),
                   ),
                 ],
