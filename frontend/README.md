@@ -22,6 +22,24 @@ The app default API URL is already `http://192.168.29.39:3000/api`, so the `--da
 
 Camera scanning works best in the Android/iOS app. Some desktop/mobile browsers block camera access on plain HTTP LAN addresses; if web scanning is blocked, run on a device build or allow the origin in the browser's camera/security settings.
 
+## Release APK
+
+For a Render backend, build the APK with the Render HTTPS API URL:
+
+```bash
+flutter clean
+flutter pub get
+flutter build apk --release --dart-define=API_BASE_URL=https://your-render-service.onrender.com/api
+```
+
+Install the generated APK from:
+
+```text
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+The Android manifest includes internet and camera permissions for API calls and barcode scanning.
+
 ## Current Screens
 
 - Auth: login and shop registration.
@@ -34,4 +52,4 @@ Camera scanning works best in the Android/iOS app. Some desktop/mobile browsers 
 
 ## Backend Assumption
 
-The app expects the backend created in `../backend` to be running at `http://192.168.29.39:3000/api`.
+The app expects the backend created in `../backend` to be reachable at `API_BASE_URL`.

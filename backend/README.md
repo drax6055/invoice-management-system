@@ -13,7 +13,7 @@ npm run dev
 
 Set `MONGODB_URI`, `JWT_SECRET`, and `REFRESH_TOKEN_SECRET` in `.env` before starting.
 
-For your local network setup, `.env.example` is already configured for:
+For local network development, use:
 
 ```env
 PORT=3000
@@ -21,6 +21,34 @@ CORS_ORIGIN=http://192.168.29.39:8080
 ```
 
 The backend API will be available at `http://192.168.29.39:3000/api` when your machine is reachable on that IP.
+
+## Render Deployment
+
+Create a Render Web Service with:
+
+```text
+Root Directory: backend
+Build Command: npm install
+Start Command: npm start
+```
+
+Set these Render environment variables:
+
+```env
+MONGODB_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/invoice-management
+JWT_SECRET=use_a_long_random_secret
+REFRESH_TOKEN_SECRET=use_a_different_long_random_secret
+JWT_EXPIRES_IN=15m
+REFRESH_TOKEN_EXPIRES_IN=7d
+CORS_ORIGIN=*
+NODE_ENV=production
+```
+
+Render provides `PORT`, so you do not need to set it there. After deploy, your API base URL will look like:
+
+```text
+https://your-render-service.onrender.com/api
+```
 
 ## API Surface
 
